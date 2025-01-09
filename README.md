@@ -5,7 +5,7 @@
 | Index  | Description                                                 |
 | ------ | ----------------------------------------------------------- |
 | Udemy  | https://www.udemy.com/course/nextjs-supabase-app-directory/ |
-| Github | ---                                                         |
+| Github | https://github.com/yk-graph/nextjs-supabase-app-directory   |
 | Deploy | ---                                                         |
 
 | Stack  | Description          |
@@ -23,17 +23,12 @@
 
 ### Tips \*NextJS
 
-| Index          | AsIs                                                                                                   | ToBe                                                                   | Solution                                                                                                                             |
-| -------------- | ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| route handler  | route ハンドラで記述した処理は静的な要素としてビルドされる<br>\*ビルド時点で取得したデータが表示される | API にリクエストが発生されるたびに動的にデータを取得したい             | [export const dynamic = 'force-dynamic'](https://nextjs.org/docs/14/app/api-reference/file-conventions/route-segment-config#dynamic) |
-| fetch cache    | fetch 関数を使ってデータを取得するとデフォルトではキャッシュを利用する設定になっている                 | キャッシュを利用せず、fetch 関数実行時に返却された値を取得したい       | [fetch(`https://...`, { cache: 'no-store' })](https://nextjs.org/docs/14/app/api-reference/functions/fetch#optionscache)             |
-| cache log      | fetch 関数実行時にキャッシュが利用されているか分からない                                               | キャッシュが利用されている場合ターミナルに `cache: HIT` と表示させたい | [next.config.mjs に設定を記述](https://nextjs.org/docs/app/api-reference/config/next-config-js/logging)                              |
-| api route      | ---                                                                                                    | 動的にパラメータの値を受け取りたい                                     | `async (_: NextRequest, { params }: { params: { id: string } }) => {}`                                                               |
-| server actions | ---                                                                                                    | server actions でフォームの入力値を受け取りたい                        | 引数に formData `FormData型` を受け取るように記述する                                                                                |
-| server actions | ---                                                                                                    | formData で取得した値を展開したい                                      | formDate に対して get メソッドを使う<br>ex: `formDate.get('title') as string`                                                        |
-| server actions | ---                                                                                                    | フォームの name 属性以外の値を server actions に渡したい               | form のコンポーネント側で `bind` メソッドを使う<br>bind の第 1 引数は null, 第 2 引数に変更したい値を指定する                        |
-| server actions | ---                                                                                                    | `bind` メソッドを使った実装例                                          | `updateTask.bind(null, task._id)`                                                                                                    |
-| useFormState   | ---                                                                                                    | server actions が返す値をクライアント側で使用したい                    | ex: `const [state, formAction] = useFormState(updateTaskWithId, initialState)`                                                       |
+| Index          | AsIs | ToBe  | Solution  |
+| -------------- | ---- | ----- | --------- |
+| SSG            | --- | SSGでコンポーネントを作成する方法を知りたい | 何も指定しないとDefaultでSSGとして挙動する<br>npm run buildのコマンドを実行してターミナルにStaticと表示されていたらSSG |
+| SSR            | --- | SSRでコンポーネントを作成する方法を知りたい | fetch関数にOptionで `cache: 'no-store'`を指定するとSSRとなる |
+| fetch          | --- | fetchしたデータを元にSSGでページを生成したい | fetch関数でOptionに何も指定しないとDefaultでSSGとなる **※ver14まで** |
+| cache-check    | --- | どのようなページがbuild時に生成されているか知りたい | 1. npm run build<br>2. `.next/server/app` に `index.html` としてbuildされるので確認できる<br>3. fetch関数にOptionで `cache: 'no-store'` を指定していたらSSRになるため確認できない |
 
 ### Tips \*MongoDB
 
